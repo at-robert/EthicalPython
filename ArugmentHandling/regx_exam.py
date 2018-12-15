@@ -1,6 +1,7 @@
 #!/usr/bin/env  python
 import subprocess
 import optparse
+import re
 
 #----------------------------------------------------------------------
 def get_argument():
@@ -18,9 +19,8 @@ if __name__ == "__main__":
     interface = options.interface
     new_mac = options.new_mac
 
-    # print(" {} , {}".format(type(interface), type(new_mac)))
+    res = subprocess.check_output(["ls","-la"])
+    print(" Output = {}".format(res))
 
-    if(isinstance(interface, str) & isinstance(new_mac, str)):
-        print("[+] Changing MAC address for " + interface + " to " + new_mac)
-    else:
-        print("Not input Argument properly yet !!")
+    reg_res = re.search(r"total [0-9]*",res.decode("utf-8"))
+    print(" Regx Output = {}".format(reg_res.group(0)))
